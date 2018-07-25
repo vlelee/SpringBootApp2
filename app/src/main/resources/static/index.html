@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yelp2</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script language="JavaScript">
+        $(document).ready(function() {
+            $.ajax({
+                url:"http://localhost:8081/api/restaurants",
+                success:function(result){
+
+                    for(var key in result) {
+                        $('#table').append( '<tr><td>' + result[key].name + '</td><td>' +
+                        result[key].rating + '</td></tr>');
+                    }
+
+                }
+            });
+
+            $("#theForm").submit(function(event){
+
+                event.preventDefault();
+
+                var submission = new Object();
+                submission.name = $('#restaurantName').val();
+                submission.categories = $('#restaurantCategory').val();
+                submission.rating = $('#restaurantRating').val();
+
+
+                    $.ajax({
+                        method: 'POST',
+                    url : '/api/restaurants',
+                    data : JSON.stringify(submission),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    success:function(result){
+                        console.log(result);
+                    }
+                })
+            })
+        });
+
+        //$.post('/api/restaurants', $("#theForm").serialize());
+
+    </script>
+</head>
+<body>
+<h1>Yelp 2.0</h1>
+<table id="table">
+    <tr>
+        <th>Restaurant Name</th>
+        <th>Rating</th>
+    </tr>
+</table>
+
+<form id="theForm" method="POST">
+    <p>Enter Restaurant Name:
+    <input id="restaurantName" type="text" name="restaurantName" />
+</p>
+    <p>Enter Restaurant Category:
+        <input id="restaurantCategory" type="text" name="restaurantCategory" />
+    </p>
+    <p>Enter Restaurant's Rating:
+        <input id="restaurantRating" type="text" name="restaurantRating" />
+    </p>
+    <input type="submit" id="addRestaurant" value="Submit">
+</form>
+</body>
+</html>
