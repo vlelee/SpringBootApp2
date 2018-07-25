@@ -5,6 +5,4 @@ WORKDIR /app
 
 COPY . .
 
-RUN ./MVNW package
-
 CMD ["java", "-jar", "/app/target/VickiChrisRelease.jar"]
