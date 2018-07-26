@@ -3,6 +3,6 @@ FROM openjdk:8-alpine
 
 WORKDIR /app
 
-COPY . .
+COPY target/VickiChrisL2-1.0-SNAPSHOT.jar /app/VickiChrisRelease.jar
 
-CMD ["java", "-jar", "/app/target/VickiChrisRelease.jar"]
+CMD ["java", "-jar", "/app/VickiChrisRelease.jar"]
